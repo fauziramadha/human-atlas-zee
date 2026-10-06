@@ -13,11 +13,12 @@ export interface ShareState {
   view:View
   isolate:boolean
   labels:boolean
+  patient:boolean
   region:RegionId|null
   section:SectionState|null
   camera:CameraState|null
 }
-const KEYS:Record<keyof ShareState,string>={v:'v',lang:'l',sex:'g',visible:'sy',concept:'c',explode:'x',view:'w',isolate:'i',labels:'lb',region:'r',section:'ct',camera:'cam'}
+const KEYS:Record<keyof ShareState,string>={v:'v',lang:'l',sex:'g',visible:'sy',concept:'c',explode:'x',view:'w',isolate:'i',labels:'lb',patient:'pm',region:'r',section:'ct',camera:'cam'}
 function round(n:number){return Math.round(n*1000)/1000}
 export function encodeShare(state:ShareState):string{
   const params=new URLSearchParams()
@@ -30,6 +31,7 @@ export function encodeShare(state:ShareState):string{
   if(state.view!=='three-quarter')params.set('w',state.view)
   if(state.isolate)params.set('i','1')
   if(state.labels)params.set('lb','1')
+  if(state.patient)params.set('pm','1')
   if(state.region)params.set('r',state.region)
   if(state.section)params.set('ct',[state.section.plane,Math.round(state.section.position*100),Math.round(state.section.depth*100),state.section.flip?1:0].join(','))
   if(state.camera)params.set('cam',state.camera.position.map(round).concat(state.camera.target.map(round)).join(','))
@@ -62,6 +64,7 @@ export function decodeShare(hash:string):Partial<ShareState>|null{
   if(explode!=null)out.explode=explode
   out.isolate=params.get('i')==='1'
   out.labels=params.get('lb')==='1'
+  out.patient=params.get('pm')==='1'
   const ct=params.get('ct')
   if(ct){
     const [plane,position,depth,flip]=ct.split(',')

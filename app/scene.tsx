@@ -12,7 +12,7 @@ import {buildRegionMap,type RegionId} from './regions';
 import type {SectionState,CameraState} from './share';
 import type {Lang} from './i18n';
 export interface SceneApi {capture:()=>string|null;getCamera:()=>CameraState;applyCamera:(camera:CameraState)=>void}
-interface Props {atlas:Atlas;state:SceneState;section:SectionState|null;labels:boolean;region:RegionId|null;lang:Lang;regionMap:Map<RegionId,Set<string>>;onSelect:(id:string)=>void;onProgress:(n:number)=>void;onError:(s:string)=>void;onApi?:(api:SceneApi)=>void}
+interface Props {atlas:Atlas;state:SceneState;section:SectionState|null;labels:boolean;region:RegionId|null;lang:Lang;regionMap:Map<RegionId,Set<string>>;quizMode?:boolean;onSelect:(id:string)=>void;onProgress:(n:number)=>void;onError:(s:string)=>void;onApi?:(api:SceneApi)=>void}
 const SIDE=['left','right','middle'];
 function stripSide(name:string){const words=name.split(/\s+/);if(words.length>1&&SIDE.includes(words[0].toLowerCase()))return words.slice(1).join(' ');return name}
 /** Curated label anchors: one chip per clinical-card concept that exists in this atlas. */
@@ -29,9 +29,9 @@ function buildLabelAnchors(atlas:Atlas){
   }
   return anchors;
 }
-export default function AnatomyScene({atlas,state,section,labels,region,lang,regionMap,onSelect,onProgress,onError,onApi}:Props){
- const host=useRef<HTMLDivElement>(null),latest=useRef(state),select=useRef(onSelect),sectionRef=useRef(section),labelsRef=useRef(labels),regionRef=useRef(region),langRef=useRef(lang);
- latest.current=state;select.current=onSelect;sectionRef.current=section;labelsRef.current=labels;regionRef.current=region;langRef.current=lang;
+export default function AnatomyScene({atlas,state,section,labels,region,lang,regionMap,quizMode=false,onSelect,onProgress,onError,onApi}:Props){
+ const host=useRef<HTMLDivElement>(null),latest=useRef(state),select=useRef(onSelect),sectionRef=useRef(section),labelsRef=useRef(labels),regionRef=useRef(region),langRef=useRef(lang),quizRef=useRef(quizMode);
+ latest.current=state;select.current=onSelect;sectionRef.current=section;labelsRef.current=labels;regionRef.current=region;langRef.current=lang;quizRef.current=quizMode;
  useEffect(()=>{
   const el=host.current!;let disposed=false,frame=0,dirty=true,ready=false,lastView='',lastReset=-1,lastIsolate='',lastRegion='',lastSectionKey='',lastUiKey='',layoutKey='',amount=0;
   let lastState:SceneState|null=null;
@@ -202,7 +202,7 @@ export default function AnatomyScene({atlas,state,section,labels,region,lang,reg
   const resize=()=>{layoutKey='';lastState=null;renderer.setPixelRatio(Math.min(devicePixelRatio,el.clientWidth<768||el.clientHeight<600?1.5:2));camera.aspect=el.clientWidth/el.clientHeight;camera.updateProjectionMatrix();renderer.setSize(el.clientWidth,el.clientHeight);fit(latest.current.view,amount);};const observer=new ResizeObserver(resize);observer.observe(el);
   const raycaster=new T.Raycaster(),pointer=new T.Vector2(),tap=new PointerTap(),worldBox=new T.Box3(),hitPoint=new T.Vector3();
   const down=(e:PointerEvent)=>{hover.hidden=true;tap.down(e.pointerId,e.clientX,e.clientY,e.pointerType==='touch'?12:5);};
-  const move=(e:PointerEvent)=>{tap.move(e.pointerId,e.clientX,e.clientY);if(e.buttons||amount<.5||e.pointerType==='touch'){hover.hidden=true;return;}const rect=el.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top,index=findTarget(x,y,12);hover.hidden=index<0;renderer.domElement.style.cursor=index<0?'grab':'pointer';if(index>=0){hover.textContent=atlas.parts[index].name;hover.style.left=`${Math.max(8,Math.min(x+14,el.clientWidth-260))}px`;hover.style.top=`${Math.max(8,Math.min(y+18,el.clientHeight-55))}px`;}};
+  const move=(e:PointerEvent)=>{tap.move(e.pointerId,e.clientX,e.clientY);if(quizRef.current){hover.hidden=true;return;}if(e.buttons||amount<.5||e.pointerType==='touch'){hover.hidden=true;return;}const rect=el.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top,index=findTarget(x,y,12);hover.hidden=index<0;renderer.domElement.style.cursor=index<0?'grab':'pointer';if(index>=0){hover.textContent=atlas.parts[index].name;hover.style.left=`${Math.max(8,Math.min(x+14,el.clientWidth-260))}px`;hover.style.top=`${Math.max(8,Math.min(y+18,el.clientHeight-55))}px`;}};
   const cancel=(e:PointerEvent)=>tap.cancel(e.pointerId);
   const up=(e:PointerEvent)=>{
    const validTap=tap.up(e.pointerId,e.clientX,e.clientY);if(!validTap||!ready)return;const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);
