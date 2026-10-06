@@ -51,7 +51,7 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
 .structure-title{overflow-wrap:anywhere}.detail-header .structure-title:focus{outline:none}
 @media(max-width:767px){
  .identity{left:max(16px,env(safe-area-inset-left));top:max(18px,env(safe-area-inset-top))}
- .top-actions{right:max(12px,env(safe-area-inset-right));gap:4px}
+ .top-actions{right:max(12px,env(safe-area-inset-right));gap:4px;flex-wrap:wrap;width:140px;justify-content:flex-end}
  .top-actions button,.top-actions .icon-button{width:44px;min-width:44px;height:44px;min-height:44px}
  .view-controls{top:max(112px,calc(env(safe-area-inset-top) + 94px));right:12px;left:12px;transform:none;flex-direction:row;justify-content:center;gap:2px;width:fit-content;max-width:calc(100% - 24px);margin-inline:auto;padding:4px;border-radius:12px}
  .view-controls button{width:44px;height:44px;flex-shrink:0}.view-controls i{width:1px;height:28px;margin:8px 4px}
@@ -86,3 +86,67 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
 @media(max-width:767px){body:has(.detail-sheet) .view-controls{visibility:hidden}}
 
 @media(max-height:600px) and (orientation:landscape){body:has(.detail-sheet) .bottom-dock{left:12px;right:324px;width:auto;transform:none;max-width:none;margin:0}}
+
+/* Cross-section, labels, regions, language, sharing, and clinical cards. */
+.top-actions button.active{background:#263b48!important;color:#fff!important}
+.top-actions .lang-button{font-size:11px;font-weight:600;letter-spacing:.04em;gap:6px}
+.section-panel{position:absolute;right:30px;top:94px;width:322px;border-radius:14px;padding:14px 16px 15px;z-index:20;display:flex;flex-direction:column;gap:12px}
+.segmented{display:flex;gap:2px;background:#edf0f2;border-radius:9px;padding:3px}
+.segmented button{flex:1;height:34px;min-height:34px;font-size:12px;font-weight:500;border-radius:6px;color:#697582}
+.segmented button.active{background:white;color:#233644;box-shadow:0 1px 3px #18253612}
+.section-slider .section-slider-head{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:500;color:#3c4956;margin-bottom:2px;gap:10px}
+.section-slider-head span{font-size:10px;color:#7c8894;letter-spacing:.03em;font-weight:400;white-space:nowrap}
+.section-slider [data-slot=slider]{padding:9px 0}
+.section-row{display:flex;gap:8px}
+.section-row button{flex:1;height:36px;min-height:36px;font-size:12px;font-weight:500;border:1px solid #18253618;border-radius:8px;color:#4a5764;gap:7px;align-items:center;justify-content:center;display:flex}
+.section-row button.active{background:#edf0f2;color:#233644;border-color:#263b4830}
+.skin-note{display:flex;align-items:center;gap:8px;font-size:11px;color:#75828e;line-height:1.45}
+.skin-note span{flex:1}
+.skin-note button{font-size:11px;font-weight:500;color:#537a89;border:1px solid #18253618;border-radius:7px;padding:5px 10px;min-height:32px}
+.region-block{margin:2px 0 10px}
+.region-heading{font-size:10px;font-weight:600;letter-spacing:.09em;color:#8b95a0;padding:0 3px 6px}
+.region-chips{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.region-chips button{font-size:11px;font-weight:500;min-height:34px;border:1px solid #18253615;border-radius:7px;color:#5d6a77;padding:0 8px}
+.region-chips button.active{background:#edf0f2;border-color:#263b4835;color:#233644}
+.label-layer{position:absolute;inset:0;pointer-events:none;z-index:15;overflow:hidden}
+.label-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:14}
+.label-line{stroke:#39525e;stroke-width:1;opacity:.5}
+.label-dot{fill:#39525e;opacity:.65}
+.label-chip{position:absolute;pointer-events:auto;white-space:nowrap;font-size:11px;font-weight:500;color:#2c3d49;background:#ffffffd2;border:1px solid #25384a20;border-radius:20px;padding:4px 11px;cursor:pointer;backdrop-filter:blur(8px);display:flex;align-items:center;transition:background .15s,color .15s,border-color .15s}
+.label-chip::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.5;margin-right:7px;flex-shrink:0}
+.label-chip:hover{background:white;color:#182536;border-color:#25384a45}
+.label-chip.selected{background:#263b48;color:#fff;border-color:#263b48}
+.toast{position:absolute;left:50%;bottom:118px;transform:translateX(-50%);z-index:70;font-size:12px;font-weight:500;color:#263b48;padding:10px 18px;border-radius:10px;pointer-events:none}
+.knowledge-divider{height:1px;background:#18253612}
+.detail-sheet dl.clinical{display:flex;flex-direction:column;gap:10px;margin:0}
+.clinical-row{display:flex;flex-direction:column;gap:2px}
+.clinical-row dt{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8b95a0}
+.clinical-row dd{margin:0;font-size:12.5px;line-height:1.6;color:#53606d}
+.condition-list h3,.clinical-note h3{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8b95a0;margin:2px 0 5px}
+.condition{display:flex;flex-direction:column;padding:7px 0;border-bottom:1px solid #1825360d}
+.condition:last-child{border-bottom:0}
+.condition strong{font-size:12px;font-weight:600;color:#33424f}
+.condition span{font-size:12px;line-height:1.55;color:#68747f;margin-top:1px}
+.clinical-note{background:#edf4f2;border:1px solid #458a8526;border-radius:10px;padding:9px 12px}
+.clinical-note p{margin:0;font-size:12.5px;line-height:1.6;color:#3f5550}
+.knowledge-source{font-size:10px;line-height:1.5;color:#98a2ab;margin:0}
+.footer-actions{display:flex;gap:18px;align-items:center}
+.layers-panel{top:252px}
+@media(min-width:768px) and (max-width:1100px){body:has(.detail-sheet) .section-panel{display:none}}
+@media(max-width:1000px){.section-panel{width:290px;right:20px}}
+@media(max-width:767px){
+ .section-panel{left:12px;right:12px;width:auto;top:auto;bottom:calc(136px + env(safe-area-inset-bottom));z-index:40;border-radius:14px;padding:12px 14px;max-height:calc(100dvh - 320px);overflow-y:auto}
+ .section-row button{min-height:44px}
+ .segmented button{min-height:44px;height:44px}
+ .region-chips button{min-height:44px}
+ .label-chip{font-size:10px;padding:3px 9px}
+ .toast{bottom:calc(160px + env(safe-area-inset-bottom))}
+ .footer-actions{gap:12px}
+ .top-actions button span{display:none}
+ .top-actions .lang-button span{display:none}
+ .skin-note span{display:none}.skin-note button{flex:1}
+}
+@media(max-height:600px) and (orientation:landscape){
+ .section-panel{top:72px;right:12px;left:auto;width:300px;bottom:auto;max-height:calc(100dvh - 100px)}
+ .label-chip{font-size:9px;padding:2px 7px}
+}
