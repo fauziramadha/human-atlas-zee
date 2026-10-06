@@ -10,7 +10,7 @@
 @media(max-height:600px) and (orientation:landscape){.identity{top:16px;left:20px}h1{font-size:27px}.identity-meta{display:none}.layers-panel{display:none}.mobile-only{display:flex}.bottom-dock{bottom:22px;width:390px;padding:10px 15px}.dock-layers{flex-direction:column;gap:5px;font-size:10px}.scene-caption{display:none}.view-controls{top:50%;flex-direction:row;right:16px}.view-controls i{height:auto;width:1px}.view-controls button{width:35px}.layers-panel.mobile-open{display:flex;top:90px;bottom:115px;left:12px;width:250px;max-height:none;z-index:30}.system-name,.system-row{min-height:44px}.detail-sheet{top:80px!important;right:15px!important;left:auto!important;bottom:112px!important;width:290px!important;max-height:none}.studio-footer{bottom:6px}.search-panel{top:70px}.top-actions{top:16px}.anatomy-search-results{max-height:160px!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 .anatomy-choice{margin-top:15px;pointer-events:auto}.anatomy-choice [data-slot=select-trigger]{min-height:36px;font-size:12px;letter-spacing:.02em;border:1px solid #18253620;border-radius:4px;color:#485866;padding:6px 10px;background:#ffffffd9}.anatomy-choice-menu [data-slot=select-item]{min-height:44px;font-size:14px}.identity{z-index:2}.layers-panel{top:217px}
-@media(max-width:767px){.anatomy-choice{margin-top:10px}.anatomy-choice [data-slot=select-trigger]{min-height:40px;font-size:12px}.layers-panel.mobile-open{top:auto}.search-panel{top:162px}.anatomy-search-results{max-height:calc(100dvh - 370px)!important}}
+@media(max-width:767px){.anatomy-choice{margin-top:16px}.anatomy-choice [data-slot=select-trigger]{min-height:40px;font-size:12px}.layers-panel.mobile-open{top:auto}.search-panel{top:162px}.anatomy-search-results{max-height:calc(100dvh - 370px)!important}}
 @media(max-height:600px) and (orientation:landscape){.anatomy-choice{margin-top:7px}.anatomy-choice [data-slot=select-trigger]{min-height:36px}.layers-panel.mobile-open{top:132px}.search-panel{top:70px}.anatomy-search-results{max-height:160px!important}}
 .part-hover{position:absolute;pointer-events:none;z-index:45;max-width:250px;background:#202e3bf5;color:#ffffff;padding:9px 12px;border-radius:5px;box-shadow:0 5px 18px #18253620;font-size:13px;line-height:1.45;text-transform:capitalize}.part-hover[hidden]{display:none}.structure-meta strong{overflow-wrap:anywhere;max-width:150px}.view-controls button:disabled{opacity:.22;background:none}.scene canvas{cursor:grab}.scene canvas:active{cursor:grabbing}
 @media(min-width:768px) and (max-width:1100px){body:has(.detail-sheet) .layers-panel{display:none}}
@@ -51,7 +51,7 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
 .structure-title{overflow-wrap:anywhere}.detail-header .structure-title:focus{outline:none}
 @media(max-width:767px){
  .identity{left:max(16px,env(safe-area-inset-left));top:max(18px,env(safe-area-inset-top))}
- .top-actions{right:max(12px,env(safe-area-inset-right));gap:4px;flex-wrap:wrap;width:140px;justify-content:flex-end}
+ .top-actions{right:max(12px,env(safe-area-inset-right));gap:4px;row-gap:2px;flex-wrap:wrap;width:192px;justify-content:flex-end}
  .top-actions button,.top-actions .icon-button{width:44px;min-width:44px;height:44px;min-height:44px}
  .view-controls{top:max(112px,calc(env(safe-area-inset-top) + 94px));right:12px;left:12px;transform:none;flex-direction:row;justify-content:center;gap:2px;width:fit-content;max-width:calc(100% - 24px);margin-inline:auto;padding:4px;border-radius:12px}
  .view-controls button{width:44px;height:44px;flex-shrink:0}.view-controls i{width:1px;height:28px;margin:8px 4px}
@@ -131,11 +131,60 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
 .clinical-note p{margin:0;font-size:12.5px;line-height:1.6;color:#3f5550}
 .knowledge-source{font-size:10px;line-height:1.5;color:#98a2ab;margin:0}
 .footer-actions{display:flex;gap:18px;align-items:center}
+/* Phase 2 — quiz, patient mode, smart search. */
+.section-panel,.quiz-panel{position:absolute;right:30px;top:94px;width:322px;border-radius:14px;padding:14px 16px 15px;z-index:20;display:flex;flex-direction:column;gap:12px}
+.quiz-intro{margin:0;font-size:12px;line-height:1.55;color:#5d6a77}
+.quiz-field{display:flex;flex-direction:column;gap:7px}
+.quiz-label{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#8b95a0}
+.quiz-bank-note{margin:0;font-size:11px;line-height:1.5;color:#75828e}
+.quiz-labels-note{margin:0;font-size:10.5px;line-height:1.5;color:#98a2ab}
+.quiz-start{justify-content:center}
+.quiz-too-few{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.quiz-too-few p{margin:0;font-size:11.5px;line-height:1.5;color:#75828e}
+.quiz-progress{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;color:#7c8894}
+.quiz-progress b{color:#233644;font-weight:650}
+.quiz-streak{color:#b4652a;font-weight:600}
+.quiz-prompt{margin:0;font-size:14px;font-weight:600;line-height:1.5;color:#233644}
+.quiz-options{display:grid;gap:6px}
+.quiz-option{justify-content:flex-start;text-align:left;min-height:42px;font-size:12.5px;border:1px solid #18253618;border-radius:8px;color:#3c4956;padding:0 12px;background:#fbfcfc}
+.quiz-option:hover:not(:disabled){background:#edf0f2;border-color:#263b4830}
+.quiz-actions{display:flex;gap:8px}
+.quiz-actions button{flex:1;height:38px;min-height:38px;font-size:12px;border:1px solid #18253618;border-radius:8px;color:#4a5764;gap:7px}
+.quiz-feedback{border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.quiz-feedback strong{font-size:13px;font-weight:650}
+.quiz-feedback p{margin:0;font-size:12px;line-height:1.55}
+.quiz-feedback.correct{background:#e9f4ec;border:1px solid #4d8b5740;color:#2c5c37}
+.quiz-feedback.wrong{background:#f9edec;border:1px solid #b0685c40;color:#8a4033}
+.quiz-fact{color:#68747f;font-size:11.5px!important}
+.quiz-next{justify-content:center;margin-top:2px}
+.quiz-results{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 2px}
+.quiz-results-score{font-size:38px;font-weight:650;color:#233644;line-height:1}
+.quiz-results-score span{font-size:17px;color:#8b95a0;font-weight:500}
+.quiz-results-pct{margin:0;font-size:13px;font-weight:600;color:#537a89}
+.quiz-results-msg{margin:2px 0 6px;font-size:12px;color:#68747f;text-align:center;line-height:1.5}
+.quiz-results-actions{display:flex;flex-direction:column;gap:6px}
+.quiz-results-actions .primary-action{justify-content:center}
+.search-suggest-chip{font-size:9px;font-weight:600;letter-spacing:.05em;color:#537a89;background:#537a8914;border:1px solid #537a8930;border-radius:10px;padding:2px 7px;text-transform:uppercase;white-space:nowrap}
+.patient-block{background:#f0f5f1;border:1px solid #458a8530;border-radius:11px;padding:11px 13px 10px;display:flex;flex-direction:column;gap:11px}
+.patient-block h3{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#3f7568;margin:0}
+.patient-section h4{font-size:11.5px;font-weight:600;color:#3c4956;margin:0 0 4px}
+.patient-section p{margin:0;font-size:12.5px;line-height:1.65;color:#53606d}
+.patient-list{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#53606d;line-height:1.55}
+.patient-list li::marker{color:#537a89}
+.patient-urgent{background:#faf3ec;border:1px solid #c98a4e40;border-radius:9px;padding:8px 11px;font-size:12px;line-height:1.55;color:#7a5a33;display:flex;gap:8px;align-items:flex-start}
+.patient-urgent::before{content:'!';flex-shrink:0;width:17px;height:17px;border-radius:50%;background:#c98a4e;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.clinical-details{border:1px solid #18253614;border-radius:10px;padding:0 11px}
+.clinical-details summary{font-size:11px;font-weight:600;letter-spacing:.05em;color:#537a89;cursor:pointer;min-height:38px;display:flex;align-items:center;list-style:none}
+.clinical-details summary::-webkit-details-marker{display:none}
+.clinical-details summary::after{content:'+';margin-left:auto;font-size:15px;color:#8b95a0}
+.clinical-details[open] summary::after{content:'–'}
+.clinical-details-body{display:flex;flex-direction:column;gap:12px;padding:2px 0 12px}
+.patient-fallback{display:block}
 .layers-panel{top:252px}
-@media(min-width:768px) and (max-width:1100px){body:has(.detail-sheet) .section-panel{display:none}}
-@media(max-width:1000px){.section-panel{width:290px;right:20px}}
+@media(min-width:768px) and (max-width:1100px){body:has(.detail-sheet) .section-panel,body:has(.detail-sheet) .quiz-panel{display:none}}
+@media(max-width:1000px){.section-panel,.quiz-panel{width:290px;right:20px}}
 @media(max-width:767px){
- .section-panel{left:12px;right:12px;width:auto;top:auto;bottom:calc(136px + env(safe-area-inset-bottom));z-index:40;border-radius:14px;padding:12px 14px;max-height:calc(100dvh - 320px);overflow-y:auto}
+ .section-panel,.quiz-panel{left:12px;right:12px;width:auto;top:auto;bottom:calc(136px + env(safe-area-inset-bottom));z-index:40;border-radius:14px;padding:12px 14px;max-height:calc(100dvh - 320px);overflow-y:auto}
  .section-row button{min-height:44px}
  .segmented button{min-height:44px;height:44px}
  .region-chips button{min-height:44px}
@@ -147,6 +196,7 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
  .skin-note span{display:none}.skin-note button{flex:1}
 }
 @media(max-height:600px) and (orientation:landscape){
- .section-panel{top:72px;right:12px;left:auto;width:300px;bottom:auto;max-height:calc(100dvh - 100px)}
+ .section-panel,.quiz-panel{top:72px;right:12px;left:auto;width:300px;bottom:auto;max-height:calc(100dvh - 100px)}
  .label-chip{font-size:9px;padding:2px 7px}
 }
+@media(max-width:767px){.anatomy-choice{margin-top:22px}}

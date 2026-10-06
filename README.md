@@ -15,6 +15,9 @@ An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Ex
 - Move from assembled anatomy to a spaced inventory of every visible piece.
 - Search anatomical names and source identifiers; isolate a structure and study its **function, blood supply, innervation, drainage, common conditions, and clinical notes**.
 - **Share** the exact view as a link, or **export a PNG** with attribution for teaching.
+- **Quiz yourself**: find-the-structure and name-the-structure questions built from the systems you are viewing, with hints, streaks, and a shareable score.
+- **Patient mode**: plain-language cards (EN/ID) with common symptoms and questions to ask a doctor — clinical detail stays available in a collapsible section.
+- **Smart search**: typo-tolerant, understands Indonesian, English, and Latin names (try "jantung", "hepar", or "windpipe").
 - Use compact controls and detail panels on mobile.
 
 ## Run locally
