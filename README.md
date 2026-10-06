@@ -2,7 +2,7 @@
 
 An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Explore **male and female reference anatomy** — take the BodyParts3D adult male apart into **2,234 individually selectable meshes** or study the **888-mesh Human Reference Atlas female assembly** — with **15 anatomical systems**, bilingual **clinical reference cards**, **CT-style cross-sections**, **anatomic labels**, and **shareable views**.
 
-**[Explore the live demo](https://human-atlas-seven.vercel.app)**
+**[Explore the live demo](https://human-atlas-seven-tawny.vercel.app)**
 
 ## Explore
 
